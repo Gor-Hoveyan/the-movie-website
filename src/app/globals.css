@@ -43,7 +43,6 @@ body {
 
 .embla__slide {
   position: relative;
-  flex: 0 0 12.5%; /* Adjust to display 3 items at once */
   padding: 10px;
 }
 

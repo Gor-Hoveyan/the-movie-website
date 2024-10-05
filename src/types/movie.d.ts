@@ -10,9 +10,11 @@ export type Movie = {
   popularity: number;
   poster_path: string;
   first_air_date: string;
-  name: string;
+  name?: string;
+  title?: string;
   vote_average: number;
   vote_count: number;
+  media_type?: string;
 };
 
 export type MoviesData = {
