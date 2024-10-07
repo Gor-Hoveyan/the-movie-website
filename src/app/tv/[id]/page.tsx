@@ -1,10 +1,11 @@
+import ShowSeason from "@/components/ShowSeason";
 import { ShowDetails } from "@/types/details";
 import Image from "next/image";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const show = await getShow(params.id);
   return (
-    <div className="w-4/5 mx-auto mt-10">
+    <div className="w-3/5 mx-auto mt-10">
       <div className="pb-5">
         <h1 className="text-3xl">{show.name}</h1>
         <h3 className="text-lg text-gray-600 font-semibold">
@@ -53,7 +54,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   })}
                 </td>
               </tr>
-              {show.networks.length && (
+              {show.networks.length ? (
                 <tr>
                   <td>Network: </td>
                   <td>
@@ -66,6 +67,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                     })}
                   </td>
                 </tr>
+              ) : (
+                ""
               )}
               <tr>
                 <td>Country: </td>
@@ -122,6 +125,15 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="pt-5">
         <h2 className="text-3xl">Seasons</h2>
+        {show.seasons.map((season, index) => {
+          return (
+            <ShowSeason
+              key={index}
+              seasonNumber={season.season_number}
+              showId={show.id}
+            />
+          );
+        })}
       </div>
     </div>
   );

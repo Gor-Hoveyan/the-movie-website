@@ -50,7 +50,12 @@ export type ShowDetails = {
 export type MovieDetails = {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection: null | string;
+  belongs_to_collection: null | {
+    id: number;
+    name: string;
+    poster_path: string;
+    backdrop_path: string;
+  };
   budget: number;
   genres: Genre[];
   homepage: string;
