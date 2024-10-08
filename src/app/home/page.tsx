@@ -6,7 +6,7 @@ export default async function Home() {
   const popularMovies = await getPopularMovies();
   const popularShows = await getPopularShows();
   return (
-    <div>
+    <div className="w-4/5 mx-auto">
       <MovieCarousel movies={top} title="Trending" />
       <MovieCarousel
         movies={popularMovies}
