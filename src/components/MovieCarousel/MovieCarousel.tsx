@@ -1,6 +1,6 @@
 import { Movie, MoviesData } from "@/types/movie";
-import Carousel from "../Carousel";
-import MovieIcon from "../MovieIcon";
+import Carousel from "./../Carousel";
+import MovieIcon from "./../MovieIcon";
 import styles from "./MovieCarousel.module.css";
 
 export default function MovieCarousel({

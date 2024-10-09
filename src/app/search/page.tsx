@@ -1,31 +1,62 @@
-import MovieIcon from "@/components/MovieIcon";
+"use client";
+import MovieList from "@/components/MovieList";
 import { MoviesData } from "@/types/movie";
-import { headers } from "next/headers";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default async function Page() {
-  let results: MoviesData | undefined;
-  const headersList = headers();
-  const fullUrl = headersList.get("referer") || "";
-  console.log(fullUrl);
-  const category = fullUrl.split("category=")[1].split("&")[0];
-  const query = fullUrl.split("query=")[1];
-  results = await getData(category, query);
+export default function Page() {
+  const [moviesData, setMoviesData] = useState<MoviesData | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const query = searchParams.get("query");
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/search/${category}?query=${query}&include_adult=false&language=en-US&page=1&api_key=fb1c9bd7dc22cbc5831bea8ce17ea69e`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMoviesData(data);
+        console.log(data);
+        setTotalPages(data.total_pages);
+        setCurrentPage((currentPage) => currentPage + 1);
+      });
+  }, []);
 
-  console.log(results);
+  async function fetchMore() {
+    console.log(totalPages, currentPage);
+    if (totalPages > currentPage) {
+      fetch(
+        `https://api.themoviedb.org/3/search/${category}?query=${query}&include_adult=false&language=en-US&page=${currentPage}&api_key=fb1c9bd7dc22cbc5831bea8ce17ea69e`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const mData = moviesData;
+          mData?.results.push(...data.results);
+          setMoviesData(mData);
+          setCurrentPage((currentPage) => currentPage + 1);
+        });
+    }
+  }
+
   return (
-    <div>
-      {results?.results.map((movie, index) => {
-        return <MovieIcon movie={movie} type={category} key={index} />;
-      })}
+    <div className="w-4/5 mx-auto text-center">
+      {moviesData && category ? (
+        <MovieList movies={moviesData} type={category} />
+      ) : (
+        ""
+      )}
+      {totalPages > currentPage ? (
+        <button
+          className="px-5 py-1 bg-blue-500 mx-auto rounded-lg my-16"
+          onClick={() => fetchMore()}
+        >
+          Load more
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
-
-async function getData(category: string, query: string): Promise<MoviesData> {
-  const data: Promise<Response> = fetch(
-    `https://api.themoviedb.org/3/search/${category}?query=${query}&include_adult=false&language=en-US&page=1&api_key=fb1c9bd7dc22cbc5831bea8ce17ea69e`
-  );
-  return (await data).json();
-}
-
-// https://api.themoviedb.org/3/search/movie?query=s&include_adult=false&language=en-US&page=1

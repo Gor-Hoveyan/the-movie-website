@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] =
-    useState<string>("All categories");
+    useState<string>("Choose category");
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -49,7 +49,7 @@ export default function Search() {
             className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute mt-10"
           >
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-              {["All categories", "Movie", "TV"].map((category) => (
+              {["Movie", "TV"].map((category) => (
                 <li key={category}>
                   <button
                     type="button"
