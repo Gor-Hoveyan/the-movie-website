@@ -3,7 +3,7 @@ import Search from "./Search";
 
 export default function Header() {
   return (
-    <header className="w-4/5 mx-auto pt-2">
+    <header className="w-4/5 mx-auto pt-2 border-b border-opacity-10 border-white">
       <div className="flex flex-row justify-between">
         <div className="flex items-center">
           <Link
