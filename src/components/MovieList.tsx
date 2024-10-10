@@ -10,13 +10,15 @@ export default function MovieList({
 }) {
   return (
     <div className="mx-auto grid grid-cols-5 pt-5">
-      {movies.results.map((movie, index) => {
-        return (
-          <div key={index} className="pt-5 text-left max-w-[200px]">
-            <MovieIcon movie={movie} type={type} />
-          </div>
-        );
-      })}
+      {movies.results.length
+        ? movies.results.map((movie, index) => {
+            return (
+              <div key={index} className="pt-5 text-left max-w-[200px]">
+                <MovieIcon movie={movie} type={type} />
+              </div>
+            );
+          })
+        : ""}
     </div>
   );
 }

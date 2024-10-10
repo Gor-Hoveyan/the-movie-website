@@ -6,9 +6,8 @@ export default async function Home() {
   const popularMovies = await getPopularMovies();
   const popularShows = await getPopularShows();
   const playingNow = await getPlayingMovies();
-  const upcomingMovies = await getUpcomingMovies();
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="lg:w-4/5 mobile:w-full mobile:px-5 mx-auto">
       <MovieCarousel movies={top} title="Trending" />
       <MovieCarousel
         movies={popularMovies}
@@ -46,13 +45,6 @@ async function getPopularShows(): Promise<MoviesData> {
 async function getPlayingMovies(): Promise<MoviesData> {
   const data: Promise<Response> = fetch(
     `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=fb1c9bd7dc22cbc5831bea8ce17ea69e`
-  );
-  return (await data).json();
-}
-
-async function getUpcomingMovies(): Promise<MoviesData> {
-  const data: Promise<Response> = fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&api_key=fb1c9bd7dc22cbc5831bea8ce17ea69e`
   );
   return (await data).json();
 }

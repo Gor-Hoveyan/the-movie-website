@@ -11,15 +11,15 @@ export default async function Page({ params }: { params: { id: string } }) {
   const recomendations = await getRecomendations(params.id, 1);
 
   return (
-    <div className="w-3/5 mx-auto mt-10">
+    <div className="lg:w-3/5 mobile:w-full mobile:px-5 mx-auto mt-10 mobile:text-center lg:text-left">
       <div className="pb-5">
         <h1 className="text-3xl">{show.name}</h1>
         <h3 className="text-lg text-gray-600 font-semibold">
           {show.in_production ? "Ongoing" : "Finished"}
         </h3>
       </div>
-      <div className="grid grid-cols-2">
-        <div>
+      <div className="grid lg:grid-cols-2">
+        <div className="mobile:w-fit mobile:mx-auto lg:mx-0">
           <Image
             src={`https://image.tmdb.org/t/p/w300/${show.poster_path}`}
             width={300}
@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             alt={show.name}
           />
         </div>
-        <div className="pt-2">
+        <div className="pt-2 mobile:w-fit mobile:mx-auto lg:mx-0">
           <ShowData show={show} />
         </div>
       </div>

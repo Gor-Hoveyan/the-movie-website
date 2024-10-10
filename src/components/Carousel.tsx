@@ -6,7 +6,7 @@ import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 export default function Carousel({ children }: { children: ReactNode }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    slidesToScroll: 8,
+    startIndex: 0,
   });
 
   const scrollPrev = useCallback(() => {

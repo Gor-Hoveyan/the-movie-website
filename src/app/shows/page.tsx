@@ -7,7 +7,7 @@ export default async function Home() {
   const onAirShows = await getShowsOnAir();
   const topRatedShows = await getTopRatedShows();
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="lg:w-4/5 mobile:w-full mobile:px-5 mx-auto">
       <MovieCarousel movies={topRatedShows} title="Top rated" type="tv" />
       <MovieCarousel movies={popularShows} title="Popular" type="tv" />
       <MovieCarousel movies={airingShows} title="Airing today" type="tv" />
